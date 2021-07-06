@@ -16,18 +16,23 @@ if (os.path.isfile('Olm_wf.txt') == True):
 # eventually, I will make an interface that will allow these properties
 # to be turned off
 program_t = True
+program_com = True
 
 with open(program_name,'r') as tts_file, open('Olm_wf.txt','a') as write_f:
     # Program line counter
     program_count = 1
 
     for line in tts_file:
+        # Ignore comments
+        if(line[0] == '#'):
+            pass
+
         # NEXT THING TO IMPLEMENT:
-        # IGNORE COMMENTS
         # LIST ARRAY PROPERTIES, LIST VARIABLE PROPERTIES
         if (program_t == True) and line != '\n':
             write_f.write(str(program_count) + '... ')
             program_count += 1
+        
         # This is how we delay indents, we do this by tricking the tokenizer with "..."
         # this delays it just enough to make the program comprehendable
         if '\n' in line:
