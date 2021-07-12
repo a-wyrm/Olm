@@ -42,18 +42,24 @@ with open(program_name,'r') as tts_file, open('Olm_wf.txt','a') as write_f:
 
                 while line[line.find(char) + findvar] == ' ':
                     findvar -= 1
-                foundvar = line[line.find(char) + findvar]
+                foundvar = line[0:line.find(char) + findvar]
+                if foundvar == "":
+                    foundvar = line[0:line.find(char) + -1]
 
                 findingcount = line[line.find(char) + findend]
-                while findingcount == ' ' or findingcount == "'":
+                while findingcount == ' ' or findingcount == "'" or findingcount == '"':
                     findend += 1
                     findingcount = line[line.find(char) + findend]
+
                 foundend = line[line.find(char) + findend]
+                typevar = ""
+                
+                # LIST ARRAY PROPERTIES 
+                #if foundend == '[':
+                    #foundend == line[line.find(char) + findend + 1]
 
                 # In case variable names are longer than 1 character...
                 #...
-                
-                typevar = ""
                 if(foundend.isalpha()):
                     typevar = "string"
                 elif(foundend.isnumeric()):
@@ -61,9 +67,6 @@ with open(program_name,'r') as tts_file, open('Olm_wf.txt','a') as write_f:
 
                 line = line.replace(str(foundvar), typevar + " " + foundvar)
                     
-
-        # NEXT THING TO IMPLEMENT:
-        # LIST ARRAY PROPERTIES
         if (program_t == True) and line != '\n':
             write_f.write(str(program_count) + '... ')
             program_count += 1
