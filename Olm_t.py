@@ -1,3 +1,3 @@
-x = 1 # This should be ignored 
+x = 1
 
-for line in tts_file
+y = 'a'

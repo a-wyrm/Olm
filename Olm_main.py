@@ -18,6 +18,7 @@ if (os.path.isfile('Olm_wf.txt') == True):
 program_t = True
 program_com = False
 program_var = True
+slow = False
 
 with open(program_name,'r') as tts_file, open('Olm_wf.txt','a') as write_f:
     # Program line counter
@@ -34,6 +35,32 @@ with open(program_name,'r') as tts_file, open('Olm_wf.txt','a') as write_f:
             line = line.partition('#')[0]
 
         #List variable properties
+        for char in line:
+            if char is '=' and line[line.find('=')+1] != '=':
+                findvar = -1
+                findend = 1
+
+                while line[line.find(char) + findvar] == ' ':
+                    findvar -= 1
+                foundvar = line[line.find(char) + findvar]
+
+                findingcount = line[line.find(char) + findend]
+                while findingcount == ' ' or findingcount == "'":
+                    findend += 1
+                    findingcount = line[line.find(char) + findend]
+                foundend = line[line.find(char) + findend]
+
+                # In case variable names are longer than 1 character...
+                #...
+                
+                typevar = ""
+                if(foundend.isalpha()):
+                    typevar = "string"
+                elif(foundend.isnumeric()):
+                    typevar = "integer"
+
+                line = line.replace(str(foundvar), typevar + " " + foundvar)
+                    
 
         # NEXT THING TO IMPLEMENT:
         # LIST ARRAY PROPERTIES
@@ -43,15 +70,19 @@ with open(program_name,'r') as tts_file, open('Olm_wf.txt','a') as write_f:
         
         # This is how we delay indents, we do this by tricking the tokenizer with "..."
         # this delays it just enough to make the program comprehendable
-        if '\n' in line:
-            line = ("... ") + line
-
+        addellipses = True
+        try:
+            line[-2]
+        except IndexError:
+            addellipses = False
+        if addellipses:
+            line = line + ("... ")
         write_f.write(line)
 
 
 
 tts_text = open('Olm_wf.txt', 'r').read().replace("\n", " ")
-speech  = gTTS(text = str(tts_text), lang = language, slow = False)
+speech  = gTTS(text = str(tts_text), lang = language, slow = slow)
   
 # saving the converted audio in an mp3
 speech.save("Olm_tts.mp3")
