@@ -42,15 +42,19 @@ with open(program_name,'r') as tts_file, open('Olm_wf.txt','a') as write_f:
                 findend = 1
 
                 # In case variable names are longer than 1 character...
-                #...
                 while line[line.find(char) + findvar] == ' ':
                     findvar -= 1
                 foundvar = line[0:line.find(char) + findvar]
                 if foundvar == "":
                     foundvar = line[0:line.find(char) + -1]
 
+                # Find the end
                 findingcount = line[line.find(char) + findend]
+                char_bool = False
                 while findingcount == ' ' or findingcount == "'" or findingcount == '"':
+                    if findingcount == "'":
+                        char_bool = True
+
                     findend += 1
                     findingcount = line[line.find(char) + findend]
 
@@ -67,13 +71,18 @@ with open(program_name,'r') as tts_file, open('Olm_wf.txt','a') as write_f:
                     foundend = line[line.find(char) + findend + 1]
                     arraycheck = True
 
-                if(foundend.isalpha()):
+                if(char_bool):
+                    typevar = "character"
+                elif(foundend.isalpha()):
                     typevar = "string"
                 elif(foundend.isnumeric()):
                     typevar = "integer"
+                elif(foundend == '{'):
+                    typevar = "dictionary"
 
-                string_c = " array of length " + array_l + " "
+
                 if(arraycheck):
+                    string_c = " array of length " + array_l + " "
                     line = line.replace(str(foundvar), typevar + string_c + foundvar)
                 else:
                     line = line.replace(str(foundvar), typevar + " " + foundvar)
