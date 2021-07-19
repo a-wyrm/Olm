@@ -1,4 +1,3 @@
-apples = 'a'
-y = 1
-egg = 22
-little = [4, 3, 5]
+testing_1 = "wow"
+testing_2 = 'a'
+testing_3 = 130
