@@ -18,12 +18,16 @@ def btn_clicked():
 def trans_clicked():
     playsound('./transcribe_text.mp3')
 
-
 def make_x(image):
-    image['image'] = img2
-    print('clicked')
-    #if(slow_flag):
-    #elif(slow_flag == 1):
+    
+    if image_flag % 2 == 0:
+        image['image'] = img2
+        print('clicked')
+    else:
+        image['image'] = img
+    globals()['image_flag'] += 1
+
+    
 
 
 window = Tk()
@@ -81,13 +85,15 @@ trans_btn.place(x = 30, y = 480, width = 380, height = 70)
 
 
 
-
+img = PhotoImage(file="./images/button_not.png")
 img2 = PhotoImage(file="./images/button_true.png")
+image_flag = 0
+
 slower_text = Label(text = "Slower text?",
                     bg = "#b98b97", fg = "#000000",
                     font = ("Georgia", int(37.0)))
 slower_text.place(x = 550.0, y = 30.0)
-slow_not_btn_img = PhotoImage(file="./images/button_not.png")
+slow_not_btn_img = img
 slow_not_btn = Button(image = slow_not_btn_img,
                       borderwidth = 0,
                       highlightthickness = 0,
@@ -100,7 +106,7 @@ counter_text = Label(text = "Counter?",
                     bg = "#b98b97", fg = "#000000",
                     font = ("Georgia", int(37.0)))
 counter_text.place(x = 550.0, y = 120.0)
-counter_not_btn_img = PhotoImage(file="./images/button_not.png")
+counter_not_btn_img = img
 counter_not_btn = Button(image = counter_not_btn_img,
                       borderwidth = 0,
                       highlightthickness = 0,
@@ -115,7 +121,7 @@ comments_text = Label(text = "Comments?",
                     bg = "#b98b97", fg = "#000000",
                     font = ("Georgia", int(37.0)))
 comments_text.place(x = 550.0, y = 210.0)
-comments_not_btn_img = PhotoImage(file="./images/button_not.png")
+comments_not_btn_img = img
 comments_not_btn = Button(image = counter_not_btn_img,
                       borderwidth = 0,
                       highlightthickness = 0,
@@ -128,7 +134,7 @@ variables_text = Label(text = "Variables?",
                     bg = "#b98b97", fg = "#000000",
                     font = ("Georgia", int(37.0)))
 variables_text.place(x = 550.0, y = 300.0)
-variables_not_btn_img = PhotoImage(file="./images/button_not.png")
+variables_not_btn_img = img
 variables_not_btn = Button(image = counter_not_btn_img,
                       borderwidth = 0,
                       highlightthickness = 0,
