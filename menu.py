@@ -5,30 +5,29 @@ import sys
 import Olm_main
 
 
+program_path = ""
 def select_path(event):
     global output_path
     output_path = filedialog.askopenfilename()
+    globals()['program_path'] = (output_path[output_path.rfind('/')+1:])
     path_entry.delete(0, END)
     path_entry.insert(0, output_path)
 
 def btn_clicked():
-    Olm_main.main()
-    print("Button clicked.")
+    Olm_main.main(program_path,(counter_flag % 2), (comments_flag % 2), (variables_flag % 2), (slow_flag % 2))
 
 def trans_clicked():
     playsound('./transcribe_text.mp3')
 
-def make_x(image):
-    
-    if image_flag % 2 == 0:
+def make_x(image, name):
+    name_needed = ((name[0:name.find('_')]) + "_flag")
+    if (image_flag % 2) == 0:
         image['image'] = img2
-        print('clicked')
+        globals()[name_needed] += 1
     else:
         image['image'] = img
+        globals()[name_needed] = 0
     globals()['image_flag'] += 1
-
-    
-
 
 window = Tk()
 window.title("Olm")
@@ -83,7 +82,10 @@ trans_btn = Button(image = trans_btn_img,
                       relief = "flat")
 trans_btn.place(x = 30, y = 480, width = 380, height = 70)
 
-
+slow_flag = 0
+counter_flag = 0
+comments_flag = 0
+variables_flag = 0
 
 img = PhotoImage(file="./images/button_not.png")
 img2 = PhotoImage(file="./images/button_true.png")
@@ -100,7 +102,7 @@ slow_not_btn = Button(image = slow_not_btn_img,
                       command = make_x,
                       relief = "flat")
 slow_not_btn.place(x = 440, y = 5, width = 110, height = 90)
-slow_not_btn['command'] = lambda arg=slow_not_btn:make_x(arg)
+slow_not_btn['command'] = lambda arg = slow_not_btn: make_x(arg, "slow_not_btn")
 
 counter_text = Label(text = "Counter?",
                     bg = "#b98b97", fg = "#000000",
@@ -113,7 +115,7 @@ counter_not_btn = Button(image = counter_not_btn_img,
                       command = make_x,
                       relief = "flat")
 counter_not_btn.place(x = 440, y = 95, width = 110, height = 90)
-counter_not_btn['command'] = lambda arg=counter_not_btn:make_x(arg)
+counter_not_btn['command'] = lambda arg=counter_not_btn:make_x(arg, "counter_not_btn")
 
 
 
@@ -128,7 +130,7 @@ comments_not_btn = Button(image = counter_not_btn_img,
                       command = make_x,
                       relief = "flat")
 comments_not_btn.place(x = 440, y = 185, width = 110, height = 90)
-comments_not_btn['command'] = lambda arg=comments_not_btn:make_x(arg)
+comments_not_btn['command'] = lambda arg=comments_not_btn:make_x(arg, "comments_not_btn")
 
 variables_text = Label(text = "Variables?",
                     bg = "#b98b97", fg = "#000000",
@@ -141,7 +143,9 @@ variables_not_btn = Button(image = counter_not_btn_img,
                       command = make_x,
                       relief = "flat")
 variables_not_btn.place(x = 440, y = 275, width = 110, height = 90)
-variables_not_btn['command'] = lambda arg=variables_not_btn:make_x(arg)
+variables_not_btn['command'] = lambda arg = variables_not_btn:make_x(arg, "variables_not_btn")
+
+
 
 select_file = Label(text = "select file",
                     bg = "#b98b97", fg = "#000000",

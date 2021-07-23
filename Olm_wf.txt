@@ -1,3 +1,2 @@
-1... string testing_1 = "wow"
-... 2... character testing_2 = 'a'
+1... string testing_1 = "wow" ... 2... character testing_2 = 'a'
 ... 3... integer testing_3 = 130... 
