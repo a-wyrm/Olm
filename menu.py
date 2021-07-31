@@ -14,20 +14,22 @@ def select_path(event):
     path_entry.insert(0, output_path)
 
 def btn_clicked():
-    Olm_main.main(program_path,(counter_flag % 2), (comments_flag % 2), (variables_flag % 2), (slow_flag % 2))
+    Olm_main.main(program_path, (counter_flag % 2), (comments_flag % 2), (variables_flag % 2), (slow_flag % 2))
 
 def trans_clicked():
     playsound('./transcribe_text.mp3')
 
 def make_x(image, name):
     name_needed = ((name[0:name.find('_')]) + "_flag")
-    if (image_flag % 2) == 0:
+    image_needed = ((name[0:name.find('_')]) + "_image_flag")
+    if (globals()[image_needed] % 2) == 0:
         image['image'] = img2
         globals()[name_needed] += 1
+        globals()[image_needed] += 1
     else:
         image['image'] = img
         globals()[name_needed] = 0
-    globals()['image_flag'] += 1
+        globals()[image_needed] = 0
 
 window = Tk()
 window.title("Olm")
@@ -90,6 +92,10 @@ variables_flag = 0
 img = PhotoImage(file="./images/button_not.png")
 img2 = PhotoImage(file="./images/button_true.png")
 image_flag = 0
+slow_image_flag = 0
+counter_image_flag = 0
+comments_image_flag = 0
+variables_image_flag = 0
 
 slower_text = Label(text = "Slower text?",
                     bg = "#b98b97", fg = "#000000",
