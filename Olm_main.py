@@ -68,7 +68,7 @@ def maketext(program_name, program_t, program_com, program_var):
                         else:
                             line = line.replace(str(foundvar), typevar + " " + foundvar)
                             
-            if (program_t == True) and line != '\n':
+            if (program_t == True):
                 write_f.write(str(program_count) + '... ')
                 program_count += 1
             
