@@ -15,10 +15,19 @@ edit_file = True
 
 
 program_name = 'Olm_t.py'
+starting_line = ""
 with open(program_name, 'r') as tts_file, open('Olm_wf.txt', 'r') as Olm_f, open('temp_file.txt','a') as write_f:
     differ = Differ()
 
     for line in differ.compare(tts_file.readlines(), Olm_f.readlines()):
         if line.startswith("-"):
-            print(line[2:], end="")
+            starting_line = (line[2:])
             break
+    tts_file.close()
+
+    with open(program_name, 'r') as tts_file:
+        for starting in tts_file:
+            if starting_line in starting:
+                write_f.write(starting_line)
+                for starting in tts_file:
+                    write_f.write(starting)
