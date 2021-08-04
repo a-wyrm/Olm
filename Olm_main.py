@@ -1,8 +1,13 @@
 from gtts import gTTS
 import os
+from edit_file import *
 
-def maketext(program_name, program_t, program_com, program_var):
+ef = True
+
+def maketext(program_name, program_t, program_com, program_var, ef):
     with open(program_name,'r') as tts_file, open('Olm_wf.txt','a') as write_f:
+        print(find_line(program_name))
+        
         # Program line counter
         program_count = 1
 
@@ -83,7 +88,7 @@ def maketext(program_name, program_t, program_com, program_var):
                 line = line + ("... ")
             write_f.write(line)
 
-def main(program_name, program_t, program_com, program_var, slow):
+def main(program_name, program_t, program_com, program_var, slow, ef):
     # language will be in English.
     language = 'en'
     
@@ -94,7 +99,7 @@ def main(program_name, program_t, program_com, program_var, slow):
     if (os.path.isfile('Olm_wf.txt') == True):
         os.remove('Olm_wf.txt')
 
-    maketext(program_name, program_t, program_com, program_var)
+    maketext(program_name, program_t, program_com, program_var, ef)
 
     tts_text = open('Olm_wf.txt', 'r').read().replace("\n", " ")
     speech  = gTTS(text = str(tts_text), lang = language, slow = slow)

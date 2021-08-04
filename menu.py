@@ -1,20 +1,23 @@
 from tkinter import *
 from tkinter import filedialog, messagebox
 from playsound import playsound
+from shutil import copyfile
 import sys
 import Olm_main
-
 
 program_path = ""
 def select_path(event):
     global output_path
     output_path = filedialog.askopenfilename()
     globals()['program_path'] = (output_path[output_path.rfind('/')+1:])
+    if(make_new_file == False):
+        copyfile(program_path,'temp_file.txt')
+        globals()[make_new_file] = 1
     path_entry.delete(0, END)
     path_entry.insert(0, output_path)
 
 def btn_clicked():
-    Olm_main.main(program_path, (counter_flag % 2), (comments_flag % 2), (variables_flag % 2), (slow_flag % 2))
+    Olm_main.main(program_path, (counter_flag % 2), (comments_flag % 2), (variables_flag % 2), (slow_flag % 2), True)
 
 def trans_clicked():
     playsound('./transcribe_text.mp3')
@@ -182,6 +185,8 @@ select_file.place(x = 460.0, y = 480.0)
 path_entry = Entry(bd = 0, bg = "#F6F7F9", highlightthickness = 0)
 path_entry.place(x = 460.0, y = 520, width = 380.0, height = 35)
 path_entry.bind("<1>", select_path)
+
+make_new_file = 0
 
 generate_btn_img = PhotoImage(file="./images/generate.png")
 generate_btn = Button(image = generate_btn_img,
