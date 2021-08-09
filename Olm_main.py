@@ -2,11 +2,8 @@ from gtts import gTTS
 import os
 from edit_file import *
 
-ef = True
-
 def maketext(program_name, program_t, program_com, program_var, ef):
     with open(program_name,'r') as tts_file, open('Olm_wf.txt','a') as write_f:
-        print(find_line(program_name))
         
         # Program line counter
         program_count = 1
@@ -99,7 +96,16 @@ def main(program_name, program_t, program_com, program_var, slow, ef):
     if (os.path.isfile('Olm_wf.txt') == True):
         os.remove('Olm_wf.txt')
 
-    maketext(program_name, program_t, program_com, program_var, ef)
+    if(ef == True):
+        word_needed = find_line(program_name)
+        with open(program_name, 'r') as tts_file, open('Olm_wf.txt','a') as write_f:
+            for starting in tts_file:
+                if word_needed in starting:
+                    for starting in tts_file:
+                        maketext(program_name, program_t, program_com, program_var, ef)
+                       
+    else:
+        maketext(program_name, program_t, program_com, program_var, ef)
 
     tts_text = open('Olm_wf.txt', 'r').read().replace("\n", " ")
     speech  = gTTS(text = str(tts_text), lang = language, slow = slow)
@@ -108,4 +114,10 @@ def main(program_name, program_t, program_com, program_var, slow, ef):
     speech.save("Olm_tts.mp3")
 
 if __name__ == '__main__':
-    main()
+    program_name = 'Olm_t.py'
+    program_t = False
+    program_com = False
+    program_var = False
+    slow = False
+    ef = False
+    main(program_name, program_t, program_com, program_var, slow, ef)

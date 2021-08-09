@@ -17,7 +17,7 @@ def select_path(event):
     path_entry.insert(0, output_path)
 
 def btn_clicked():
-    Olm_main.main(program_path, (counter_flag % 2), (comments_flag % 2), (variables_flag % 2), (slow_flag % 2), True)
+    Olm_main.main(program_path, (counter_flag % 2), (comments_flag % 2), (variables_flag % 2), (slow_flag % 2), (start_flag % 2))
 
 def trans_clicked():
     playsound('./transcribe_text.mp3')
