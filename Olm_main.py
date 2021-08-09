@@ -2,14 +2,13 @@ from gtts import gTTS
 import os
 from edit_file import *
 
-def maketext(program_name, program_t, program_com, program_var, ef):
+def maketext(program_name, program_t, program_com, program_var):
     with open(program_name,'r') as tts_file, open('Olm_wf.txt','a') as write_f:
-        
+    
         # Program line counter
         program_count = 1
 
         for line in tts_file:
-
             if (program_com == False):
                 # Ignore comments
                 if(line[0] == '#'):
@@ -95,29 +94,28 @@ def main(program_name, program_t, program_com, program_var, slow, ef):
 
     if (os.path.isfile('Olm_wf.txt') == True):
         os.remove('Olm_wf.txt')
+    
 
-    if(ef == True):
-        word_needed = find_line(program_name)
-        with open(program_name, 'r') as tts_file, open('Olm_wf.txt','a') as write_f:
-            for starting in tts_file:
-                if word_needed in starting:
-                    for starting in tts_file:
-                        maketext(program_name, program_t, program_com, program_var, ef)
+    # Got to find a way to make programmer counter accurate
+    if(ef):
+        find_line(program_name)
+        program_name = 'edited_text.txt'
+        maketext(program_name, program_t, program_com, program_var)
                        
     else:
-        maketext(program_name, program_t, program_com, program_var, ef)
+        maketext(program_name, program_t, program_com, program_var)
 
     tts_text = open('Olm_wf.txt', 'r').read().replace("\n", " ")
     speech  = gTTS(text = str(tts_text), lang = language, slow = slow)
       
-    # saving the converted audio in an mp3
+    #saving the converted audio in an mp3
     speech.save("Olm_tts.mp3")
 
 if __name__ == '__main__':
     program_name = 'Olm_t.py'
-    program_t = False
+    program_t = True
     program_com = False
     program_var = False
     slow = False
-    ef = False
+    ef = True
     main(program_name, program_t, program_com, program_var, slow, ef)

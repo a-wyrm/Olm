@@ -1,7 +1,8 @@
 import os
 from difflib import Differ
-
 starting_line = ""
+program_name = 'Olm_t.py'
+
 def find_line(program_name):
     with open(program_name, 'r') as tts_file, open('temp_file.txt', 'r') as Olm_f:
         differ = Differ()
@@ -10,7 +11,16 @@ def find_line(program_name):
                 globals()['starting_line']= (line[2:])
                 break
         tts_file.close()
-    return(starting_line)
+
+
+    if (os.path.isfile('edited_text.txt') == True):
+        os.remove('edited_text.txt')
+    with open(program_name,'r') as tts_file, open('edited_text.txt','a') as write_f:
+        for starting in tts_file:
+            if starting_line in starting:
+                write_f.write(starting_line)
+                for starting in tts_file:
+                    write_f.write(starting)
 
 if __name__ == '__main__':
     find_line(program_name)
