@@ -88,15 +88,16 @@ def main(program_name, program_t, program_com, program_var, slow, ef):
     # language will be in English.
     language = 'en'
     
-    # Eventually, this program will be able to tell the edits to a code
-    # and give the user the option of starting the TTS at the specific thing
-    # they edited
 
     if (os.path.isfile('Olm_wf.txt') == True):
         os.remove('Olm_wf.txt')
     
 
     # Got to find a way to make programmer counter accurate
+
+    # this function call will be able to tell the edits to a code
+    # and give the user the option of starting the TTS at the specific thing
+    # they edited
     if(ef):
         find_line(program_name)
         program_name = 'edited_text.txt'
@@ -112,10 +113,4 @@ def main(program_name, program_t, program_com, program_var, slow, ef):
     speech.save("Olm_tts.mp3")
 
 if __name__ == '__main__':
-    program_name = 'Olm_t.py'
-    program_t = True
-    program_com = False
-    program_var = False
-    slow = False
-    ef = True
-    main(program_name, program_t, program_com, program_var, slow, ef)
+    main()

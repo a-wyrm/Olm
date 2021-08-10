@@ -1,2 +1,1 @@
 testing_4 = "holy"
-egg egg

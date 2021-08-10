@@ -36,20 +36,20 @@ def make_x(image, name):
 
 window = Tk()
 window.title("Olm")
-window.geometry("870x680")
+window.geometry("870x700")
 window.configure(bg = "#b98b97")
 
 
 canvas = Canvas(
     window,
     bg = "#ebebeb",
-    height = 680,
+    height = 700,
     width = 870,
     bd = 0,
     highlightthickness = 0,
     relief = "ridge")
 canvas.place(x = 0, y = 0)
-canvas.create_rectangle(435, 0, 435 + 435, 0 + 680, fill = "#b98b97", outline="")
+canvas.create_rectangle(435, 0, 435 + 435, 0 + 700, fill = "#b98b97", outline="")
 
 title = Label(text="Welcome to Olm!",
               bg = "#ebebeb", fg = "#b98b97",
@@ -59,7 +59,7 @@ title.place(x = 27.0, y = 25.0)
 info_text = Label(text="Olm is an application used to transcribe\n"
                    "Python programs into text-to-speech.\n"
                    "On the right side of this window,\n"
-                   "there are four buttons and a select field.\n",
+                   "there are five buttons and a select field.\n",
                   bg = "#ebebeb", fg = "#b98b97",
                   justify = "left",
                   font = ("Georgia", int(16.5)))
@@ -72,21 +72,24 @@ instructions_text = Label(text="The first button will ask if you want the text\n
                           "The third button is an ignore comments option.\n\n"
                           "The fourth button will transcribe variable properties\n"
                           "(such as the type of variable, or array size).\n\n"
+                          "The fifth button will only transcribe the field you\n"
+                          "edited (and everything below).\n\n"
                           "Enter your program path into the select field,\n"
                           "then generate the TTS at the very bottom.",
                   bg = "#ebebeb", fg = "#b98b97",
                   justify = "left",
-                  font = ("Georgia", int(13.5)))
+                  font = ("Georgia", int(12.5)))
 
 instructions_text.place(x = 27.0, y = 230.0)
 
 note_text = Label(text="Please note that larger files will take\n"
-                  "longer to process.",
+                  "longer to process. Do not close Olm when\n"
+                  "editing your file.",
                   bg = "#ebebeb", fg = "#b98b97",
                   justify = "left",
                   font = ("Georgia", int(15.5)))
 
-note_text.place(x = 27.0, y = 500.0)
+note_text.place(x = 27.0, y = 530.0)
 
 trans_btn_img = PhotoImage(file="./images/trans_img.png")
 trans_btn = Button(image = trans_btn_img,
@@ -94,7 +97,7 @@ trans_btn = Button(image = trans_btn_img,
                       highlightthickness = 0,
                       command = trans_clicked,
                       relief = "flat")
-trans_btn.place(x = 30, y = 580, width = 380, height = 70)
+trans_btn.place(x = 30, y = 610, width = 380, height = 70)
 
 
 
